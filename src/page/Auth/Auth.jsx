@@ -1,19 +1,51 @@
 import React, { useState } from "react";
-
+import {useDispatch} from "react-redux"
+import {Link, useNavigate} from "react-router-dom"
 import "./Auth.css"
 
-import Link from "react"
 
 import logo from "../../ass/stack-overflow.png"
 
 import AboutAuth from "./AboutAuth";
 
+import { signup, login } from "../../actions/auth.js";
+
+
 const Auth= ()=>{
 
     const [isSignUp, setIsSignUp]=useState(false)
+    const [name, setName]= useState('')
+    const [email, setEmail] =useState('')
+    const [password, setPassword]=useState('')
+
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+
+
 
     const handleSwitch=()=>{
-      setIsSignUp(!isSignUp)
+      setIsSignUp(!isSignUp);
+      
+    }
+
+    const handleSubmit= (e)=>{
+      e.preventDefault();
+      if(!email && !password){
+        alert("Enter email and password")
+      }
+      if(isSignUp){
+        if(!name){
+          alert("Enter a name to continue")
+        }
+        console.log("signup");
+        dispatch(signup({name,email,password}, navigate))
+        // console.log({name, email, password});
+      }else{
+        dispatch(login({email,password},navigate))
+        
+        // console.log({email, password});
+      }
+      
     }
     
     return (
@@ -26,23 +58,23 @@ const Auth= ()=>{
        {/* Container no -2 */}
 
            <div className="auth-container-2">
-              { !isSignUp && <img src={logo} alt="StackOverflow" className="login-logo" width="65px" ></img>} 
-              <form>
+              { !isSignUp &&  <Link to="/"><img src={logo} alt="StackOverflow" className="login-logo" width="65px" /></Link>} 
+              <form onSubmit={handleSubmit}>
 
                 {/* Display Name */}
 
                  { isSignUp &&
                   <label htmlFor="name">
                     <h4>Display Name</h4>
-                    <input type="text" id="name" name="name"></input>
+                    <input type="text" id="name" name="name" onChange={(e)=> {setName(e.target.value)}}></input>
                  </label> 
                  }
-
+                 
                 {/* Email */}
 
                  <label htmlFor="email">
                     <h4>Email</h4>
-                    <input type="email" id="email" name="email"></input>
+                    <input type="email" id="email" name="email" onChange={(e)=> {setEmail(e.target.value)}}></input>
                  </label>
 
                  {/* Password */}
@@ -52,7 +84,7 @@ const Auth= ()=>{
                       <h4>Password</h4>
                       { !isSignUp && <p style={{color:"#007ac6" , fontSize:"13px"}}>forgot password</p>}
                     </div>
-                     <input type="password" name="password" id="password"></input>
+                     <input type="password" name="password" id="password" onChange={(e)=> {setPassword(e.target.value)}}></input>
                  </label>
 
                  {isSignUp && <p style={{color:"#666767", fontSize:"13px"}}>Passwords must contain at least eight characters,<br /> 
@@ -71,7 +103,7 @@ const Auth= ()=>{
 
                  {/* Login Button */}
 
-                 <button type="submit" className="auth-btn">{ isSignUp ? "SignUp" : "login"}</button>
+                 <button type="submit" className="auth-btn" >{ isSignUp ? "SignUp" : "login"}</button>
                 
 
                  {isSignUp &&

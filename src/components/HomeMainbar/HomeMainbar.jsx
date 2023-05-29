@@ -4,74 +4,78 @@ import { Link, useLocation, useNavigate } from "react-router-dom"
 import "./HomeMainbar.css"
 
 import Questions from "./Questions.jsx";
+import { useSelector } from "react-redux";
 
 const HomeMainbar = () => {
 
+  const questionList =useSelector((state) => (state.questionReducer))
   const location = useLocation();
 
   const user = 1;
   const navigate = useNavigate();
 
+  
 
-  var questionList = [{
-    id: 1,
-    votes: 3,
-    questionTitle: "what is a fucnction",
-    quesionBody: "On this bug report on Github we were asked to raise the issue here. The issue is simple. The user has 2 or more accounts on their phone, let's say xyz@gmail.com and abc@gmail.com. They install an app ... that I broke into OneToMany and ManyToOne relationship. I want to build a form that has checkboxes instead of collection, and I am using the 'DoctrineObject' hydrator, but it does ...",
-    questionTags: ["c", "css", "express", "firebase"],
-    usePosted: "Earvin",
-    askedOn: "jan 1",
-    views: 14,
-    noOfAnswers: 823,
-    userId:1,
-    answer:[{
-      answerBody: "Answer" ,
-      userAnswered: "aravindh",
-      answeredOn: "jan 2",
-      userId:2
-    }]
-  }, {
-    id: 2,
-    votes: 3,
-    questionTitle: "How can I dispatch on traits relating two types, where the second type that co-satisfies the ",
-    quesionBody: "It meant to be",
-    questionTags: ["c", "css", "express", "firebase"],
-    usePosted: "Earvin",
-    askedOn: "jan 1",
-    views: 4,
-    noOfAnswers: 8
-  }, {
-    id: 3,
-    votes: 3,
-    questionTitle: "what is a fucnction",
-    quesionBody: "It meant to be",
-    questionTags: ["c", "css", "express", "firebase"],
-    usePosted: "Earvin",
-    askedOn: "jan 1",
-    views: 12,
-    noOfAnswers: 8
-  }, {
-    id: 4,
-    votes: 3,
-    questionTitle: "Was the origin positioning 'box' removed from Xcode 6?",
-    quesionBody: "I don't see this tool in Xcode 6. Did they take it out? Can I re-enable it? I use it all the time.",
-    questionTags: ["c", "css", "express", "firebase"],
-    usePosted: "Earvin",
-    askedOn: "jan 1",
-    views: 12,
-    noOfAnswers: 8
-  }, {
-    id: 5,
-    votes: 3,
-    questionTitle: "Zend Framework 2 Doctrine 2 one-to-many checkbox hydration",
-    quesionBody: "I have a ManyToMany that I broke into OneToMany and ManyToOne relationship. I want to build a form that has checkboxes instead of collection, and I am using the 'DoctrineObject' hydrator, but it does ..",
-    questionTags: ["c", "css", "express", "firebase"],
-    usePosted: "Earvin",
-    askedOn: "jan 1",
-    views: 12,
-    noOfAnswers: 8
-  }
-  ]
+
+  // var questionList = [{
+  //   id: 1,
+  //   votes: 3,
+  //   questionTitle: "what is a fucnction",
+  //   quesionBody: "On this bug report on Github we were asked to raise the issue here. The issue is simple. The user has 2 or more accounts on their phone, let's say xyz@gmail.com and abc@gmail.com. They install an app ... that I broke into OneToMany and ManyToOne relationship. I want to build a form that has checkboxes instead of collection, and I am using the 'DoctrineObject' hydrator, but it does ...",
+  //   questionTags: ["c", "css", "express", "firebase"],
+  //   usePosted: "Earvin",
+  //   askedOn: "jan 1",
+  //   views: 14,
+  //   noOfAnswers: 823,
+  //   userId:1,
+  //   answer:[{
+  //     answerBody: "Answer" ,
+  //     userAnswered: "aravindh",
+  //     answeredOn: "jan 2",
+  //     userId:2
+  //   }]
+  // }, {
+  //   id: 2,
+  //   votes: 3,
+  //   questionTitle: "How can I dispatch on traits relating two types, where the second type that co-satisfies the ",
+  //   quesionBody: "It meant to be",
+  //   questionTags: ["c", "css", "express", "firebase"],
+  //   usePosted: "Earvin",
+  //   askedOn: "jan 1",
+  //   views: 4,
+  //   noOfAnswers: 8
+  // }, {
+  //   id: 3,
+  //   votes: 3,
+  //   questionTitle: "what is a fucnction",
+  //   quesionBody: "It meant to be",
+  //   questionTags: ["c", "css", "express", "firebase"],
+  //   usePosted: "Earvin",
+  //   askedOn: "jan 1",
+  //   views: 12,
+  //   noOfAnswers: 8
+  // }, {
+  //   id: 4,
+  //   votes: 3,
+  //   questionTitle: "Was the origin positioning 'box' removed from Xcode 6?",
+  //   quesionBody: "I don't see this tool in Xcode 6. Did they take it out? Can I re-enable it? I use it all the time.",
+  //   questionTags: ["c", "css", "express", "firebase"],
+  //   usePosted: "Earvin",
+  //   askedOn: "jan 1",
+  //   views: 12,
+  //   noOfAnswers: 8
+  // }, {
+  //   id: 5,
+  //   votes: 3,
+  //   questionTitle: "Zend Framework 2 Doctrine 2 one-to-many checkbox hydration",
+  //   quesionBody: "I have a ManyToMany that I broke into OneToMany and ManyToOne relationship. I want to build a form that has checkboxes instead of collection, and I am using the 'DoctrineObject' hydrator, but it does ..",
+  //   questionTags: ["c", "css", "express", "firebase"],
+  //   usePosted: "Earvin",
+  //   askedOn: "jan 1",
+  //   views: 12,
+  //   noOfAnswers: 8
+  // }
+  // ]
 
 
   const redirect = () => {
@@ -94,11 +98,11 @@ const HomeMainbar = () => {
       </div>
       <div>
         {
-          questionList === null ? <h1>Loading...</h1> :
+          questionList.data === null ? <h1>Loading...</h1> :
             <>
               <div className="main-bar-header2">
                 <div>
-                  <p>{questionList.length} questions with no <br />upvoted or accepted answers</p>
+                  <p>{questionList.data.length} questions with no <br />upvoted or accepted answers</p>
 
                 </div>
                 <div className="mainbar-header-buttons">
@@ -115,7 +119,7 @@ const HomeMainbar = () => {
 
               <hr style={{ width: "100%", marginLeft: "0" }} />
               {
-                questionList.map((question) => (
+                questionList.data.map((question) => (
                   <Questions question={question} />
                 ))
               }
