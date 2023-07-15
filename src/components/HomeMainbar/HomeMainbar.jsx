@@ -5,13 +5,13 @@ import "./HomeMainbar.css"
 
 import Questions from "./Questions.jsx";
 import { useSelector } from "react-redux";
+import QuestionList from "./QuestionList"
 
 const HomeMainbar = () => {
 
-  const questionList =useSelector((state) => (state.questionReducer))
   const location = useLocation();
-
   const user = 1;
+  const questionList =useSelector((state) => (state.questionReducer))
   const navigate = useNavigate();
 
   
@@ -118,11 +118,12 @@ const HomeMainbar = () => {
               </div>
 
               <hr style={{ width: "100%", marginLeft: "0" }} />
-              {
+              <QuestionList questionsList={questionList.data}/>
+              {/* {
                 questionList.data.map((question) => (
                   <Questions question={question} />
                 ))
-              }
+              } */}
             </>
         }
       </div>

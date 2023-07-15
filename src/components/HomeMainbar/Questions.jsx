@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import moment from "moment";
 
 const Questions = ({ question }) => {
     return (
@@ -7,9 +8,9 @@ const Questions = ({ question }) => {
            
             <div className="display-votes-ans">
 
-                <p>{question.votes} votes</p> 
-                <p>{question.noOfAnswers} answers</p>
-                <p>{question.views} views</p>
+                <p>{question.upVote.length} votes</p> 
+                <p>{question.downVote.length} downvote</p>
+                <p>{question.answer.length} answers</p>
 
             </div>
             {/* <div className="display-votes-ans">
@@ -17,9 +18,9 @@ const Questions = ({ question }) => {
                 <p>answers</p>
             </div> */}
             <div className="display-question-details">
-                <Link style={{textDecoration:"none",fontSize:"17px"}} to={`/Questions/${question.id}`}>{question.questionTitle}</Link>
+                <Link style={{textDecoration:"none",fontSize:"17px"}} to={`/Questions/${question._id}`}>{question.questionTitle}</Link>
                 <div className="question-body">
-                    <p>{question.quesionBody.substring(0, 150)}...</p>
+                    <p>{question.questionBody.substring(0, 150)}...</p>
                 </div>
                 <div className="display-tags-time">
                     <div className="display-tags">
@@ -30,7 +31,7 @@ const Questions = ({ question }) => {
                         }
                     </div>
                     <p className="display-time">
-                        asked {question.askedOn} {question.userPosted}
+                        asked {moment(question.askedOn).fromNow()} {question.userPosted.charAt(0).toUpperCase() + question.userPosted.slice(1)}
                     </p>
                 </div>
             </div>

@@ -1,135 +1,86 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Questions.css"
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useNavigate, useLocation } from "react-router-dom";
+import {  useDispatch, useSelector } from "react-redux";
+import moment from "moment"
+import copy from "copy-to-clipboard"
+
 import upVote from "../../ass/sort-up-solid.svg"
 import downVote from "../../ass/sort-down-solid.svg"
 import Avatar from "../../components/Avatar/Avatar"
 import DisplayAnswer from "./DisplayAnswer"
+import { postAnswer } from "../../actions/question";
+import { deleteQuestion, voteQuestion } from "../../actions/question";
 
 
 const QuesDetailsDisplay = () => {
 
   const { id } = useParams();
-  console.log(id);
 
-  var questionList = [{
-    _id: '1',
-    votes: 3,
-    upVotes: 5,
-    downVotes: 9,
-    questionTitle: "what is a fucnction",
-    quesionBody: "On this bug report on Github we were asked to raise the issue here. The issue is simple. The user has 2 or more accounts on their phone, let's say xyz@gmail.com and abc@gmail.com. They install an app ... that I broke into OneToMany and ManyToOne relationship. I want to build a form that has checkboxes instead of collection, and I am using the 'DoctrineObject' hydrator, but it does ...",
-    questionTags: ["c", "css", "express", "firebase"],
-    usePosted: "Earvin",
-    askedOn: "jan 1",
-    views: 14,
-    noOfAnswers: 823,
-    userId: 1,
-    answer: [{
-      answerBody: "Answer",
-      userAnswered: "aravindh",
-      answeredOn: "jan 2",
-      userId: 2
-    }]
-  }, {
-    _id: '2',
-    votes: 3,
-    upVotes: 5,
-    downVotes: 9,
-    questionTitle: "How can I dispatch on traits relating two types, where the second type that co-satisfies the ",
-    quesionBody: "It meant to be",
-    questionTags: ["c", "css", "express", "firebase"],
-    usePosted: "Earvin",
-    askedOn: "jan 1",
-    views: 4,
-    noOfAnswers: 8,
-    userId: 1,
-    answer: [{
-      answerBody: "Answer",
-      userAnswered: "aravindh",
-      answeredOn: "jan 2",
-      userId: 2
-    }]
-  }, {
-    _id: '3',
-    votes: 3,
-    upVotes: 5,
-    downVotes: 9,
-    questionTitle: "what is a fucnction",
-    quesionBody: "It meant to be",
-    questionTags: ["c", "css", "express", "firebase"],
-    usePosted: "Earvin",
-    askedOn: "jan 1",
-    views: 12,
-    noOfAnswers: 8,
-    userId: 1,
-    answer: [{
-      answerBody: "Answer",
-      userAnswered: "aravindh",
-      answeredOn: "jan 2",
-      userId: 2
-    }]
-  }, {
-    _id: '4',
-    votes: 3,
-    upVotes: 5,
-    downVotes: 9,
-    questionTitle: "Was the origin positioning 'box' removed from Xcode 6?",
-    quesionBody: "I don't see this tool in Xcode 6. Did they take it out? Can I re-enable it? I use it all the time.",
-    questionTags: ["c", "css", "express", "firebase"],
-    usePosted: "Earvin",
-    askedOn: "jan 1",
-    views: 12,
-    noOfAnswers: 8,
-    userId: 1,
-    answer: [{
-      answerBody: "Answer",
-      userAnswered: "aravindh",
-      answeredOn: "jan 2",
-      userId: 2
-    }]
-  }, {
-    _id: '5',
-    votes: 3,
-    upVotes: 5,
-    downVotes: 9,
-    questionTitle: "Zend Framework 2 Doctrine 2 one-to-many checkbox hydration",
-    quesionBody: "I have a ManyToMany that I broke into OneToMany and ManyToOne relationship. I want to build a form that has checkboxes instead of collection, and I am using the 'DoctrineObject' hydrator, but it does ..",
-    questionTags: ["c", "css", "express", "firebase"],
-    usePosted: "Earvin",
-    askedOn: "jan 1",
-    views: 12,
-    noOfAnswers: 8,
-    userId: 1,
-    answer: [{
-      answerBody: "Answer",
-      userAnswered: "aravindh",
-      answeredOn: "jan 2",
-      userId: 2
-    }]
+  
+const questionList =useSelector((state) => (state.questionReducer))
+// console.log(questionList.data.filter((question) => question._id === id));
+  
+
+  const [AnswerBody, setAns]= useState("")
+
+  const dispatch= useDispatch();
+  const Navigate = useNavigate()
+  const User = useSelector((state)=>(state.currentUser));
+  const location = useLocation()
+  const url = "http://localhost:3000"
+
+  const handlePostAns=(e, answerLength)=>{
+       e.preventDefault()
+       if(User === null){
+        alert("Login or SignUp to answer the question")
+        Navigate('/Auth')
+       }else{
+        if(AnswerBody === ""){
+          alert("Enter answer for submitting")
+        }else{
+          dispatch(postAnswer({id, noOfAnswers: answerLength+1, answerBody: AnswerBody, userAnswered: User.result.name, userId: User.result._id}))
+        }
+       }
   }
-  ]
+
+  const handleShare = () => {
+    copy(url + location.pathname)
+    alert('copied url: ' + url + location.pathname)
+}
+
+ const handleQuesDelete = ()=>{
+   dispatch(deleteQuestion(id, Navigate ));
+ }
+
+ const handleUpvote= ()=>{
+  dispatch(voteQuestion(id,"upVote", User.result._id))
+ }
+
+ const handleDownvote=()=>{
+  dispatch(voteQuestion(id,"downVote", User.result._id))
+ }
 
   return (
     <div className="question-details-page">
       {
-        questionList === null ?
+        questionList.data === null ?
           <h1> loading..</h1> :
           <>
             {
-              questionList.filter((question) => question._id === id).map((question) => {
+              questionList.data.filter((question) => question._id === id).map((question) => {
                 return (
                   <div key={question._id}>
                     <section className="question-details-conatiner">
                       <h1>{question.questionTitle}</h1>
                       <div className="question-details-container-2">
                         <div className="question-votes">
-                          <img src={upVote} className="votes-icon" alt="" width="18px" />
-                          <p>{question.upVotes - question.downVotes}</p>
-                          <img src={downVote} className="votes-icon" alt="" width="18px" />
+                          <img src={upVote} className="votes-icon" onClick={handleUpvote} alt="" width="18px" />
+                          <p>{question.upVote.length - question.downVote.length}</p>
+                          <img src={downVote} className="votes-icon" onClick={handleDownvote} alt="" width="18px" />
                         </div>
                         <div style={{ width: "100%" }}>
-                          <p className="question-body">{question.quesionBody}</p>
+                          <p className="question-body">{question.questionBody}</p>
                           <div className="question-details-tags">
                             {
                               question.questionTags.map((tag) => (
@@ -139,15 +90,18 @@ const QuesDetailsDisplay = () => {
                           </div>
                           <div className="question-actions-user">
                             <div>
-                              <button type="button" >Share</button>
-                              <button type="button" >Delete</button>
+                              <button type="button" onClick={handleShare}>Share</button>
+                              {
+                                User?.result?._id === question?.userId && 
+                                  (<button type="button" onClick={handleQuesDelete}>Delete</button>)
+                              }
                             </div>
                             <div >
-                              <p>asked {question.askedOn}</p>
+                              <p>asked {moment(question.askedOn).fromNow()}</p>
                               <Link to={`/User/${question.userId}`} className="user-link" style={{ color: '#00086d8' }}>
-                                <Avatar backgroundColor="orange" px="8px" py="5px" style={{}}>{question.usePosted.charAt(0).toUpperCase()}</Avatar>
+                                <Avatar backgroundColor="orange" px="8px" py="5px" style={{}}>{question.userPosted.charAt(0).toUpperCase()}</Avatar>
                                 <div>
-                                  {question.usePosted}
+                                  {question.userPosted}
                                 </div>
                               </Link>
                             </div>
@@ -160,15 +114,15 @@ const QuesDetailsDisplay = () => {
                       question.noOfAnswers !== 0 && (
                         <section>
                           <h3>{question.noOfAnswers} answers</h3>
-                          <DisplayAnswer key={question._id} question={question}></DisplayAnswer>
+                          <DisplayAnswer key={question._id} question={question} handleShare={handleShare}></DisplayAnswer>
                         </section>
                       )
                     }
                     <section className="post-ans-container">
                       <h3>Your Answer</h3>
-                      <form>
-                        <textarea name="" id="" cols="30" rows="10"></textarea> <br />
-                        <input type="submit" className="post-ans-btn" />
+                      <form  onSubmit={(e) =>{handlePostAns(e, question.answer.length)}}>
+                        <textarea name="" id="" cols="30" rows="10" onChange={e => setAns(e.target.value)}></textarea> <br />
+                        <input type="submit" className="post-ans-btn" value="Post your Answer"/>
                       </form>
                       <p>
                         Browse other question tagged

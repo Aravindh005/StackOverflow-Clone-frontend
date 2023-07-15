@@ -21,8 +21,6 @@ const Auth= ()=>{
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-
-
     const handleSwitch=()=>{
       setIsSignUp(!isSignUp);
       
@@ -37,13 +35,11 @@ const Auth= ()=>{
         if(!name){
           alert("Enter a name to continue")
         }
-        console.log("signup");
+       
         dispatch(signup({name,email,password}, navigate))
-        // console.log({name, email, password});
-      }else{
-        dispatch(login({email,password},navigate))
         
-        // console.log({email, password});
+      }else{
+        dispatch(login({email,password},navigate))  
       }
       
     }

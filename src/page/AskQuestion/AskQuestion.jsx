@@ -14,14 +14,20 @@ const AskQuestions = () => {
     const dispatch=useDispatch()
     const User = useSelector((state) =>(state.currentUser))
     const navigate = useNavigate()
+    var name="aravindh"
     
-
-    const handleSubmit= (e) =>{
-        e.preventDefault()
-        console.log(User.result);
-        // console.log({questionTitle,questionBody,questionTags});
-        dispatch(askQuestion({questionTitle,questionBody,questionTags,userPosted: User.result.name,},navigate))
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        
+        dispatch(askQuestion({ questionTitle, questionBody, questionTags, userPosted: User.result.name, userId: User?.result._id}, navigate))
     }
+
+    // const handleSubmit= (e) =>{
+    //     e.preventDefault()
+        
+    //     // console.log({questionTitle,questionBody,questionTags});
+    //     dispatch(askQuestion({questionTitle,questionBody,questionTags,userPosted: User.result.name},navigate))
+    // }
 
     const handleEnter =(e) =>{
         if(e.key === 'Enter'){
@@ -50,12 +56,12 @@ const AskQuestions = () => {
                                     <p>Introduce the problem and expand on what you put in the title. Minimum 20 characters.</p>
                                     <textarea name="" id="ask-ques-body" onChange={(e)=>{setQuestionBody(e.target.value)}} onKeyDown={handleEnter} cols="50" rows="10"></textarea>
                                 </label> </div>
-                            <div className="each-label">
+                            {/* <div className="each-label">
                                 <label htmlFor="ask-ques-result">
                                     <h4>What did you try and what were you expecting?</h4>
                                     <p>Describe what you tried, what you expected to happen, and what actually resulted. Minimum 20 characters.</p>
                                     <input type="text" id="ask-ques-result" placeholder=""></input>
-                                </label> </div>
+                                </label> </div> */}
                             <div className="each-label">
                                 <label htmlFor="ask-ques-tags">
                                     <h4>Tags</h4>
