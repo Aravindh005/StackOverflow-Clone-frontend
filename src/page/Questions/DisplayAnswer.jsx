@@ -30,7 +30,7 @@ const DisplayAnswer = ({question,handleShare}) => {
                             </div>
                             <div>
                                 <p>Answered {moment(ans.answeredOn).fromNow()}</p>
-                                <Link to={`/User/${ans.userId}`} className="user-link" style={{ color: '#00086d8' }}>
+                                <Link to={`/Users/${ans.userId}`} className="user-link" style={{ color: '#00086d8' }}>
                                     <Avatar  backgroundColor="green" px="8px" py="5px" style={{}}>{ans.userAnswered.charAt(0).toUpperCase()}</Avatar>
                                     <div>
                                         {ans.userAnswered}

@@ -8,11 +8,7 @@ import authReducer from './reducers/auth';
 import currentUserReducer from './reducers/currentUser';
 import questionsReducer from './reducers/questions.js';
 import userReducer from './reducers/users';
-// import Kommunicate from '@kommunicate/kommunicate-chatbot-plugin';
- 
-// Kommunicate.init("2c9ac41341aeec520614f04af4da85879")
 
-// import usersReducer from './reducers/Users';
 
 const store= configureStore({ 
   reducer: {

@@ -98,7 +98,7 @@ const questionList =useSelector((state) => (state.questionReducer))
                             </div>
                             <div >
                               <p>asked {moment(question.askedOn).fromNow()}</p>
-                              <Link to={`/User/${question.userId}`} className="user-link" style={{ color: '#00086d8' }}>
+                              <Link to={`/Users/${question.userId}`} className="user-link" style={{ color: '#00086d8' }}>
                                 <Avatar backgroundColor="orange" px="8px" py="5px" style={{}}>{question.userPosted.charAt(0).toUpperCase()}</Avatar>
                                 <div>
                                   {question.userPosted}
