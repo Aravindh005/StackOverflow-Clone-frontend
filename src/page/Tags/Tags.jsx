@@ -27,7 +27,7 @@ const Tags= ()=>{
         {
             id:5,
             tagName:"C#",
-            tagDesc:"C# (pronounced "see sharp") is a high-level, statically typed, multi-paradigm programming language developed by Microsoft. C# code usually targets"
+            tagDesc:"C# is a high-level, statically typed, multi-paradigm programming language developed by Microsoft. C# code usually targets"
         },
         {
             id:6,
