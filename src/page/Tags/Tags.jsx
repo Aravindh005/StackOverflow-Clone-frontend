@@ -7,27 +7,37 @@ const Tags= ()=>{
         {
             id:1,
             tagName:"Html",
-            tagDesc:"html This email was intended for Aravindh Shanmugam (MERN-Stack Web Developer - React.js | Node.js | Express.js | MongoDB)"
+            tagDesc:"HTML (HyperText Markup Language) is the markup language for creating web pages and other information to be displayed in a web browser."
         },
         {
-            id:1,
-            tagName:"Html",
-            tagDesc:"html This email was intended for Aravindh Shanmugam (MERN-Stack Web Developer - React.js | Node.js | Express.js | MongoDB)"
+            id:2,
+            tagName:"javascript",
+            tagDesc:"For questions about programming in ECMAScript (JavaScript/JS) and its different dialects/implementations (except for ActionScript)"
         },
         {
-            id:1,
-            tagName:"Html",
-            tagDesc:"html This email was intended for Aravindh Shanmugam (MERN-Stack Web Developer - React.js | Node.js | Express.js | MongoDB)"
+            id:3,
+            tagName:"python",
+            tagDesc:"Python is a multi-paradigm, dynamically typed, multi-purpose programming language. It is designed to be quick to learn, understand, and"
         },
         {
-            id:1,
-            tagName:"Html",
-            tagDesc:"html This email was intended for Aravindh Shanmugam (MERN-Stack Web Developer - React.js | Node.js | Express.js | MongoDB)"
+            id:4,
+            tagName:"java",
+            tagDesc:"Java is a high-level object-oriented programming language. Use this tag when you're having problems using or understanding the language itself. "
         },
         {
-            id:1,
-            tagName:"Html",
-            tagDesc:"html This email was intended for Aravindh Shanmugam (MERN-Stack Web Developer - React.js | Node.js | Express.js | MongoDB)"
+            id:5,
+            tagName:"C#",
+            tagDesc:"C# (pronounced "see sharp") is a high-level, statically typed, multi-paradigm programming language developed by Microsoft. C# code usually targets"
+        },
+        {
+            id:6,
+            tagName:"jQuery",
+            tagDesc:"jQuery is a JavaScript library. Consider also adding the JavaScript tag. jQuery is a popular cross-browser JavaScript library that facilitates Document Objects"
+        },
+        {
+            id:7,
+            tagName:"C++",
+            tagDesc:"C++ is a general-purpose programming language. Initially, it was designed as an extension to C and has a similar syntax, but it is now a"
         }
     ]
     return(
